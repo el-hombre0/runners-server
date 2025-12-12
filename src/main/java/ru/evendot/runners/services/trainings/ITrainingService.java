@@ -6,5 +6,7 @@ import ru.evendot.runners.entities.trainings.Training;
 public interface ITrainingService {
     Training saveTraining(TrainingDTO trainingDTO);
     Training getTraining(Long id);
-    void deleteTraining();
+    Training updateTraining(TrainingDTO trainingDTO);
+    void deleteTraining(Long id);
+    TrainingDTO convertToTrainingDTO(Training training);
 }

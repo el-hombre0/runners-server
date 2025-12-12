@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    username: postgres
+    password: password
+    url: jdbc:postgresql://127.0.0.1:5430/runnersdb
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    show-sql: true

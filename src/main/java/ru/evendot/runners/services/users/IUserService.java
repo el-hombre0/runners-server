@@ -6,7 +6,7 @@ import ru.evendot.runners.entities.requests.users.UserUpdateRequest;
 import ru.evendot.runners.entities.users.User;
 
 public interface IUserService extends UserDetailsService {
-    User createUser(CreateUserRequest userDTO);
+    User createUser(UserDTO userDTO);
     User getUserById(Long id);
     User updateUser(Long id, UserUpdateRequest userUpdateReq);
     void deleteUser(Long id);

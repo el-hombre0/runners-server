@@ -19,8 +19,8 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public User createUser(CreateUserRequest userDTO) {
-        return null;
+    public User createUser(UserDTO userDTO) {
+        return ;
     }
 
     @Override

@@ -1,12 +1,17 @@
 package ru.evendot.runners.DTOs.trainings;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import ru.evendot.runners.entities.users.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
 public class TrainingDTO {
+    private Long id;
     private List<User> users;
 
     private LocalDate creationDate;
