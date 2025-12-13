@@ -1,4 +1,4 @@
-package ru.evendot.runners.controllers;
+package ru.evendot.runners.controllers.training;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

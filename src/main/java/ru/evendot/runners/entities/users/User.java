@@ -35,7 +35,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    private boolean isActive;
+    private Boolean isActive;
+
+    private Role role;
 
 }
 

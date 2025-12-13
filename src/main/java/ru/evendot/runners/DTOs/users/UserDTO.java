@@ -6,6 +6,7 @@ import lombok.Data;
 import ru.evendot.runners.entities.entertainment.Club;
 import ru.evendot.runners.entities.entertainment.Post;
 import ru.evendot.runners.entities.users.Image;
+import ru.evendot.runners.entities.users.Role;
 import ru.evendot.runners.entities.users.User;
 
 import java.util.List;
@@ -24,5 +25,6 @@ public class UserDTO {
     private String bio;
     private List<Image> images;
     private List<Post> posts;
-    private boolean isActive;
+    private Boolean isActive;
+    private Role role;
 }

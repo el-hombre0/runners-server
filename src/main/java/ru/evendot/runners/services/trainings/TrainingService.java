@@ -39,7 +39,7 @@ public class TrainingService implements ITrainingService{
     public void deleteTraining(Long id){
         try {
             trainingRepo.deleteById(id);
-        } catch (ResourceNotFoundException e) {
+        } catch (RuntimeException e) {
             throw new ResourceNotFoundException("Training with id " + id + " not found!");
         }
     }
