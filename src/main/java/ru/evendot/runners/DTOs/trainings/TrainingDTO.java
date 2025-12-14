@@ -2,6 +2,8 @@ package ru.evendot.runners.DTOs.trainings;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import ru.evendot.runners.entities.positioning.Route;
 import ru.evendot.runners.entities.users.User;
 
 import java.time.LocalDate;
@@ -10,9 +12,11 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TrainingDTO {
     private Long id;
     private List<User> users;
+    private Route route;
 
     private LocalDate creationDate;
     private LocalTime creationTime;

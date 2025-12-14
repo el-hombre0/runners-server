@@ -6,6 +6,7 @@ import ru.evendot.runners.entities.entertainment.Club;
 import ru.evendot.runners.entities.entertainment.Post;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -21,11 +22,11 @@ public class User {
     private String email;
     private String password;
 
-    @ManyToMany
-    private List<User> friends;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<User> friends;
 
-    @ManyToMany
-    private List<Club> clubsParticipation;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Club> clubsParticipation;
 
     private String bio;
 

@@ -26,7 +26,7 @@ repositories {
 
 dependencies {
 //	implementation("org.springframework.boot:spring-boot-starter-graphql")
-	implementation("org.springframework.boot:spring-boot-starter-security")
+//	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:4.0.0")

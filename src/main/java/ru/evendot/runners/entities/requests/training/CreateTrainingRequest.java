@@ -1,7 +1,9 @@
-package ru.evendot.runners.entities.trainings;
+package ru.evendot.runners.entities.requests.training;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.evendot.runners.entities.positioning.Route;
 import ru.evendot.runners.entities.users.User;
 
@@ -9,18 +11,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@Entity
 @Data
-public class Training {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToMany
-    @JoinColumn(name = "training_id")
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreateTrainingRequest {
     private List<User> users;
-
-    @OneToOne
     private Route route;
 
     private LocalDate creationDate;
@@ -33,5 +28,5 @@ public class Training {
     private LocalTime timeInMotion;
     private Integer climbing;
     private Integer maxHeight;
-    private LocalTime averagePace;
+    private Double averagePace;
 }

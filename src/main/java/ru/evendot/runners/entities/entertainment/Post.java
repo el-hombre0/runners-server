@@ -3,6 +3,7 @@ package ru.evendot.runners.entities.entertainment;
 import jakarta.persistence.*;
 import lombok.Data;
 import ru.evendot.runners.entities.users.Image;
+import ru.evendot.runners.entities.users.User;
 
 import java.util.List;
 
@@ -18,5 +19,9 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Image> images;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

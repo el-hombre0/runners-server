@@ -1,10 +1,13 @@
 package ru.evendot.runners.controllers.user;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.evendot.runners.DTOs.users.UserDTO;
+import ru.evendot.runners.entities.requests.users.CreateUserRequest;
+import ru.evendot.runners.entities.requests.users.UserUpdateRequest;
 import ru.evendot.runners.entities.responses.DataResponse;
 import ru.evendot.runners.entities.users.Role;
 import ru.evendot.runners.entities.users.User;
@@ -18,10 +21,10 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/")
-    public ResponseEntity<DataResponse> createUser(@RequestBody UserDTO userDTO) {
-        User user = userService.createUser(userDTO);
+    public ResponseEntity<DataResponse> createUser(@RequestBody CreateUserRequest req) {
+        User user = userService.createUser(req);
         UserDTO createdUserDTO = userService.convertToUserDTO(user);
-        return ResponseEntity.ok().body(new DataResponse("User created successfully!", userDTO));
+        return ResponseEntity.ok().body(new DataResponse("User created successfully!", createdUserDTO));
     }
 
     @GetMapping("/{id}")
@@ -31,28 +34,28 @@ public class UserController {
             UserDTO userDTO = userService.convertToUserDTO(user);
             return ResponseEntity.ok().body(new DataResponse("User found successfully!", userDTO));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("User not found!", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("User not found!", null));
         }
     }
 
     @PutMapping("/")
-    public ResponseEntity<DataResponse> updateUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<DataResponse> updateUser(@RequestBody UserUpdateRequest req) {
         try {
-            User user = userService.updateUser(userDTO);
+            User user = userService.updateUser(req);
             UserDTO updatedUserDTO = userService.convertToUserDTO(user);
             return ResponseEntity.ok().body(new DataResponse("User updated successfully!", updatedUserDTO));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("User with id " + userDTO.getId() + " not found!", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("User with id " + req.getId() + " not found!", null));
         }
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("/{id}")
     public ResponseEntity<DataResponse> deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUser(id);
             return ResponseEntity.ok().body(new DataResponse("User deleted successfully!", null));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("User with id " + id + " not found!", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("User with id " + id + " not found!", null));
         }
     }
 
