@@ -9,13 +9,14 @@ import ru.evendot.runners.entities.users.User;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateTrainingRequest {
     private Long id;
-    private List<User> users;
+    private Set<User> users;
     private Route route;
 
     private LocalDate creationDate;
@@ -28,5 +29,5 @@ public class UpdateTrainingRequest {
     private LocalTime timeInMotion;
     private Integer climbing;
     private Integer maxHeight;
-    private LocalTime averagePace;
+    private Double averagePace;
 }

@@ -10,12 +10,13 @@ import ru.evendot.runners.entities.users.User;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateTrainingRequest {
-    private List<User> users;
+    private List<Long> userIds;
     private Route route;
 
     private LocalDate creationDate;

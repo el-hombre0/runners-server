@@ -11,6 +11,9 @@ import ru.evendot.runners.entities.trainings.Training;
 import ru.evendot.runners.exceptions.ResourceNotFoundException;
 import ru.evendot.runners.services.trainings.TrainingService;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @RestController
 @RequestMapping("/api/v1/trainings")
@@ -20,9 +23,15 @@ public class TrainingController {
 
     @PostMapping("/")
     public ResponseEntity<DataResponse> addTraining(@RequestBody CreateTrainingRequest req) {
-        Training training = trainingService.saveTraining(req);
-        TrainingDTO trainingDTO = trainingService.convertToTrainingDTO(training);
-        return ResponseEntity.ok(new DataResponse("Training successfully added!", trainingDTO));
+        try {
+            Training training = trainingService.saveTraining(req);
+            TrainingDTO trainingDTO = trainingService.convertToTrainingDTO(training);
+            return ResponseEntity.ok(new DataResponse("Training successfully added!", trainingDTO));
+        }
+        catch (ResourceNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("Users with id " + req.getUserIds().toString() + "not found!", null));
+
+        }
     }
 
     @GetMapping("/{id}")
@@ -33,6 +42,21 @@ public class TrainingController {
             return ResponseEntity.ok(new DataResponse("", trainingDTO));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("Training with id " + id + "not found!", null));
+        }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<DataResponse> getAllUserTrainings(@RequestParam Long userId) {
+        try {
+            Set<Training> trainings = trainingService.getAllUserTrainings(userId);
+            Set<TrainingDTO> trainingsDTOs = new HashSet<>();
+            for (Training training : trainings ) {
+                trainingsDTOs.add(trainingService.convertToTrainingDTO(training));
+            }
+//            TrainingDTO trainingDTO = trainingService.convertToTrainingDTO(training);
+            return ResponseEntity.ok(new DataResponse("Trainings successfully found!", trainingsDTOs));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("User with id " + userId + "not found!", null));
         }
     }
 

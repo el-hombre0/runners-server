@@ -7,8 +7,13 @@ import ru.evendot.runners.DTOs.trainings.TrainingDTO;
 import ru.evendot.runners.entities.requests.training.CreateTrainingRequest;
 import ru.evendot.runners.entities.requests.training.UpdateTrainingRequest;
 import ru.evendot.runners.entities.trainings.Training;
+import ru.evendot.runners.entities.users.User;
 import ru.evendot.runners.exceptions.ResourceNotFoundException;
 import ru.evendot.runners.repositories.training.TrainingRepository;
+import ru.evendot.runners.services.users.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Service
@@ -18,10 +23,18 @@ public class TrainingService implements ITrainingService {
     private final TrainingRepository trainingRepo;
     private final ModelMapper modelMapper;
 
+    private final UserService userService;
+
     public Training saveTraining(CreateTrainingRequest req) {
 //        Training training = createComplexTrainingObject(trainingDTO);
         Training training = new Training();
-        training.setUsers(req.getUsers());
+
+        Set<User> users = new HashSet<>();
+        for (Long userId : req.getUserIds()){
+            users.add(userService.getUserById(userId));
+        }
+        training.setUsers(users);
+
         training.setRoute(req.getRoute());
 
         training.setCreationDate(req.getCreationDate());
@@ -41,6 +54,14 @@ public class TrainingService implements ITrainingService {
 
     public Training getTraining(Long id) {
         return trainingRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Training with id " + id + " not found!"));
+    }
+
+    public Set<Training> getAllUserTrainings(Long userId){
+        try{
+            return trainingRepo.findByUsers(userId);
+        } catch (RuntimeException e){
+            throw new ResourceNotFoundException("User with id " + userId + " not found!");
+        }
     }
 
     public Training updateTraining(UpdateTrainingRequest req) {

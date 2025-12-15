@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import ru.evendot.runners.entities.entertainment.Club;
 import ru.evendot.runners.entities.entertainment.Post;
+import ru.evendot.runners.entities.trainings.Training;
 
 import java.util.List;
 import java.util.Set;
@@ -39,6 +40,9 @@ public class User {
     private Boolean isActive;
 
     private Role role;
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    private Set<Training> trainings;
 
 }
 

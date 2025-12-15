@@ -37,6 +37,7 @@ public class UserService implements IUserService {
         user.setPosts(null);
         user.setIsActive(true);
         user.setRole(Role.USER);
+        user.setTrainings(null);
         userRepo.save(user);
         return user;
     }

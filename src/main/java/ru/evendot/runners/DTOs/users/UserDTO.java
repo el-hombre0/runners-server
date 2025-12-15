@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.evendot.runners.DTOs.trainings.TrainingDTO;
 import ru.evendot.runners.entities.entertainment.Club;
 import ru.evendot.runners.entities.entertainment.Post;
+import ru.evendot.runners.entities.trainings.Training;
 import ru.evendot.runners.entities.users.Image;
 import ru.evendot.runners.entities.users.Role;
 import ru.evendot.runners.entities.users.User;
@@ -30,4 +32,5 @@ public class UserDTO {
     private List<Post> posts;
     private Boolean isActive;
     private Role role;
+    private Set<TrainingDTO> trainings;
 }
