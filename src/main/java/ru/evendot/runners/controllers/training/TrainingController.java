@@ -1,14 +1,17 @@
 package ru.evendot.runners.controllers.training;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.evendot.runners.DTOs.trainings.TrainingDTO;
+import ru.evendot.runners.entities.positioning.Route;
 import ru.evendot.runners.entities.requests.training.CreateTrainingRequest;
 import ru.evendot.runners.entities.requests.training.UpdateTrainingRequest;
 import ru.evendot.runners.entities.responses.DataResponse;
 import ru.evendot.runners.entities.trainings.Training;
 import ru.evendot.runners.exceptions.ResourceNotFoundException;
+import ru.evendot.runners.services.positioning.RouteService;
 import ru.evendot.runners.services.trainings.TrainingService;
 
 import java.util.HashSet;
@@ -17,14 +20,17 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/trainings")
+@AllArgsConstructor
 public class TrainingController {
 
     private TrainingService trainingService;
+    private RouteService routeService;
 
     @PostMapping("/")
     public ResponseEntity<DataResponse> addTraining(@RequestBody CreateTrainingRequest req) {
         try {
-            Training training = trainingService.saveTraining(req);
+            Route route = routeService.initializeNewRoute(req.getRoute());
+            Training training = trainingService.saveTraining(req, route);
             TrainingDTO trainingDTO = trainingService.convertToTrainingDTO(training);
             return ResponseEntity.ok(new DataResponse("Training successfully added!", trainingDTO));
         }

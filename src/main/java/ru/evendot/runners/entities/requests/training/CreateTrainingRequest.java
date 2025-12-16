@@ -1,33 +1,38 @@
 package ru.evendot.runners.entities.requests.training;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.evendot.runners.entities.positioning.Route;
-import ru.evendot.runners.entities.users.User;
+import ru.evendot.runners.entities.requests.positioning.CreateRouteRequest;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateTrainingRequest {
     private List<Long> userIds;
-    private Route route;
+//    private List<Point> route;
+    private CreateRouteRequest route;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
     private LocalDate creationDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private LocalTime creationTime;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
     private LocalDate endingDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private LocalTime endingTime;
 
     private String notes;
-    private Double distance;
-    private LocalTime timeInMotion;
-    private Integer climbing;
-    private Integer maxHeight;
-    private Double averagePace;
+    private Float distance;
+    private Float climbing;
+    private Float maxHeight;
+    private Float averagePace;
 }

@@ -4,15 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.evendot.runners.DTOs.trainings.TrainingDTO;
+import ru.evendot.runners.entities.positioning.Point;
+import ru.evendot.runners.entities.positioning.Route;
+import ru.evendot.runners.entities.requests.positioning.UpdatePointRequest;
 import ru.evendot.runners.entities.requests.training.CreateTrainingRequest;
 import ru.evendot.runners.entities.requests.training.UpdateTrainingRequest;
 import ru.evendot.runners.entities.trainings.Training;
 import ru.evendot.runners.entities.users.User;
 import ru.evendot.runners.exceptions.ResourceNotFoundException;
 import ru.evendot.runners.repositories.training.TrainingRepository;
+import ru.evendot.runners.services.positioning.RouteService;
 import ru.evendot.runners.services.users.UserService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -24,9 +30,9 @@ public class TrainingService implements ITrainingService {
     private final ModelMapper modelMapper;
 
     private final UserService userService;
+    private final RouteService routeService;
 
-    public Training saveTraining(CreateTrainingRequest req) {
-//        Training training = createComplexTrainingObject(trainingDTO);
+    public Training saveTraining(CreateTrainingRequest req, Route route) {
         Training training = new Training();
 
         Set<User> users = new HashSet<>();
@@ -34,8 +40,7 @@ public class TrainingService implements ITrainingService {
             users.add(userService.getUserById(userId));
         }
         training.setUsers(users);
-
-        training.setRoute(req.getRoute());
+        training.setRoute(route);
 
         training.setCreationDate(req.getCreationDate());
         training.setCreationTime(req.getCreationTime());
@@ -44,7 +49,6 @@ public class TrainingService implements ITrainingService {
 
         training.setNotes(req.getNotes());
         training.setDistance(req.getDistance());
-        training.setTimeInMotion(req.getTimeInMotion());
         training.setClimbing(req.getClimbing());
         training.setMaxHeight(req.getMaxHeight());
         training.setAveragePace(req.getAveragePace());
@@ -66,9 +70,29 @@ public class TrainingService implements ITrainingService {
 
     public Training updateTraining(UpdateTrainingRequest req) {
         return trainingRepo.findById(req.getId()).map(existingTraining -> {
-//            existingTraining = createComplexTrainingObject(trainingDTO);
-            existingTraining.setUsers(req.getUsers());
-            existingTraining.setRoute(req.getRoute());
+            Set<User> users = new HashSet<>();
+            for (Long userId : req.getUserIds()){
+                users.add(userService.getUserById(userId));
+            }
+            existingTraining.setUsers(users);
+            Route route = routeService.getRoute(req.getRoute().getId());
+            route.setDescription(req.getRoute().getDescription());
+            route.setName(req.getRoute().getName());
+            route.setTraining(req.getRoute().getTraining());
+
+            List<Point> points = new ArrayList<>();
+            for (UpdatePointRequest pointReq : req.getRoute().getPoints()){
+                Point point = new Point();
+                point.setLatitude(pointReq.getLatitude());
+                point.setLongitude(pointReq.getLongitude());
+                point.setAltitude(pointReq.getAltitude());
+                point.setTimestamp(pointReq.getTimestamp());
+                point.setRoute(route);
+                points.add(point);
+            }
+            route.setPoints(points);
+
+            existingTraining.setRoute(route);
 
             existingTraining.setCreationDate(req.getCreationDate());
             existingTraining.setCreationTime(req.getCreationTime());
@@ -77,7 +101,6 @@ public class TrainingService implements ITrainingService {
 
             existingTraining.setNotes(req.getNotes());
             existingTraining.setDistance(req.getDistance());
-            existingTraining.setTimeInMotion(req.getTimeInMotion());
             existingTraining.setClimbing(req.getClimbing());
             existingTraining.setMaxHeight(req.getMaxHeight());
             existingTraining.setAveragePace(req.getAveragePace());
@@ -96,20 +119,4 @@ public class TrainingService implements ITrainingService {
     public TrainingDTO convertToTrainingDTO(Training training) {
         return modelMapper.map(training, TrainingDTO.class);
     }
-
-//    private Training createComplexTrainingObject(TrainingDTO sourceTraining){
-//        Training training = new Training();
-//        training.setUsers(sourceTraining.getUsers());
-//        training.setCreationDate(sourceTraining.getCreationDate());
-//        training.setCreationTime(sourceTraining.getCreationTime());
-//        training.setEndingDate(sourceTraining.getEndingDate());
-//        training.setEndingTime(sourceTraining.getEndingTime());
-//        training.setNotes(sourceTraining.getNotes());
-//        training.setDistance(sourceTraining.getDistance());
-//        training.setTimeInMotion(sourceTraining.getTimeInMotion());
-//        training.setClimbing(sourceTraining.getClimbing());
-//        training.setMaxHeight(sourceTraining.getMaxHeight());
-//        training.setAveragePace(sourceTraining.getAveragePace());
-//        return training;
-//    }
 }

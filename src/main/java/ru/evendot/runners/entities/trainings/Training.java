@@ -1,5 +1,6 @@
 package ru.evendot.runners.entities.trainings;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import ru.evendot.runners.entities.positioning.Route;
@@ -7,7 +8,6 @@ import ru.evendot.runners.entities.users.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,15 +28,22 @@ public class Training {
     @OneToOne
     private Route route;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
     private LocalDate creationDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private LocalTime creationTime;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
     private LocalDate endingDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private LocalTime endingTime;
 
     private String notes;
-    private Double distance;
-    private LocalTime timeInMotion;
-    private Integer climbing;
-    private Integer maxHeight;
-    private Double averagePace;
+    private Float distance;
+
+    private Float climbing;
+    private Float maxHeight;
+    private Float averagePace;
 }

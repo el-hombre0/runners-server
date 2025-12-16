@@ -32,6 +32,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:4.0.0")
 	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
 	implementation("org.modelmapper:modelmapper:3.2.6")
+	// https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind
+	implementation("tools.jackson.core:jackson-databind:3.0.3")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
