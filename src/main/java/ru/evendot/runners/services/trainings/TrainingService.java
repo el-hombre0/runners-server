@@ -16,6 +16,8 @@ import ru.evendot.runners.repositories.training.TrainingRepository;
 import ru.evendot.runners.services.positioning.RouteService;
 import ru.evendot.runners.services.users.UserService;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +51,7 @@ public class TrainingService implements ITrainingService {
 
         training.setNotes(req.getNotes());
         training.setDistance(req.getDistance());
+        training.setDuration(Duration.between(req.getEndingTime(), req.getEndingTime()));
         training.setClimbing(req.getClimbing());
         training.setMaxHeight(req.getMaxHeight());
         training.setAveragePace(req.getAveragePace());

@@ -1,5 +1,6 @@
 package ru.evendot.runners.DTOs.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,12 +26,13 @@ public class UserDTO {
     private String phoneNumber;
     private String email;
     private String password;
-    private Set<User> friends;
-    private Set<Club> clubsParticipation;
+    private Set<UserDTO> friends;
+    private Set<ClubDTO> clubsParticipation;
     private String bio;
-    private List<Image> images;
-    private List<Post> posts;
+    private List<ImageDTO> images;
+    private List<PostDTO> posts;
     private Boolean isActive;
     private Role role;
+    @JsonIgnore
     private Set<TrainingDTO> trainings;
 }

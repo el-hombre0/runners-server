@@ -11,7 +11,7 @@ public class CreatePointRequest {
     private float latitude;
     private float altitude;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private LocalTime timestamp;
 //    private CreateRouteRequest track;
 }

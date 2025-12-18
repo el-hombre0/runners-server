@@ -18,16 +18,16 @@ public class CreateTrainingRequest {
 //    private List<Point> route;
     private CreateRouteRequest route;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
     private LocalDate creationDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime creationTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
     private LocalDate endingDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime endingTime;
 
     private String notes;

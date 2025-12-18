@@ -35,7 +35,7 @@ public class TrainingController {
             return ResponseEntity.ok(new DataResponse("Training successfully added!", trainingDTO));
         }
         catch (ResourceNotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("Users with id " + req.getUserIds().toString() + "not found!", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("Users with id " + req.getUserIds().toString() + " not found!", null));
 
         }
     }

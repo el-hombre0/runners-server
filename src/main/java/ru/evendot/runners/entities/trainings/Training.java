@@ -6,6 +6,7 @@ import lombok.Data;
 import ru.evendot.runners.entities.positioning.Route;
 import ru.evendot.runners.entities.users.User;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
@@ -28,21 +29,21 @@ public class Training {
     @OneToOne
     private Route route;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
     private LocalDate creationDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private LocalTime creationTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
     private LocalDate endingDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private LocalTime endingTime;
 
     private String notes;
     private Float distance;
-
+    private Duration duration;
     private Float climbing;
     private Float maxHeight;
     private Float averagePace;

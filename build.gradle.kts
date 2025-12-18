@@ -34,11 +34,13 @@ dependencies {
 	implementation("org.modelmapper:modelmapper:3.2.6")
 	// https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind
 	implementation("tools.jackson.core:jackson-databind:3.0.3")
+	// https://mvnrepository.com/artifact/tools.jackson.datatype/jackson-datatype-jsr310
+//	implementation("tools.jackson.datatype:jackson-datatype-jsr310:3.0.0-rc2")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
-	testImplementation("org.springframework.boot:spring-boot-starter-graphql-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
+//	testImplementation("org.springframework.boot:spring-boot-starter-graphql-test")
+//	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
