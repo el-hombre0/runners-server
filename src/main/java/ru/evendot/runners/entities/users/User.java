@@ -24,9 +24,11 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = "friends")
     private Set<User> friends;
 
     @ManyToMany(fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = "user")
     private Set<Club> clubsParticipation;
 
     private String bio;
@@ -41,7 +43,9 @@ public class User {
 
     private Role role;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+//    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+//    @JsonBackReference
+    @OneToMany(mappedBy = "user")
     private Set<Training> trainings;
 
 }

@@ -1,9 +1,9 @@
-package ru.evendot.runners.DTOs.entertainment;
+package ru.evendot.runners.DTOs.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ClubDTO {
+public class ImageDTO {
 }

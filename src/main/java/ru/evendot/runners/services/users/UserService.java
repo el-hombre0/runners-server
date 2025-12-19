@@ -78,22 +78,22 @@ public class UserService implements IUserService {
         }).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found!"));
     }
 
-    private User createComplexUserObject(UserDTO userDTO) {
-        User user = new User();
-        user.setFirstname(userDTO.getFirstname());
-        user.setLastname(userDTO.getLastname());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setFriends(userDTO.getFriends());
-        user.setClubsParticipation(userDTO.getClubsParticipation());
-        user.setBio(userDTO.getBio());
-        user.setImages(userDTO.getImages());
-        user.setPosts(userDTO.getPosts());
-        user.setIsActive(true);
-        user.setRole(Role.USER);
-        return user;
-    }
+//    private User createComplexUserObject(UserDTO userDTO) {
+//        User user = new User();
+//        user.setFirstname(userDTO.getFirstname());
+//        user.setLastname(userDTO.getLastname());
+//        user.setPhoneNumber(userDTO.getPhoneNumber());
+//        user.setEmail(userDTO.getEmail());
+//        user.setPassword(userDTO.getPassword());
+//        user.setFriends(userDTO.getFriends());
+//        user.setClubsParticipation(userDTO.getClubsParticipation());
+//        user.setBio(userDTO.getBio());
+//        user.setImages(userDTO.getImages());
+//        user.setPosts(userDTO.getPosts());
+//        user.setIsActive(true);
+//        user.setRole(Role.USER);
+//        return user;
+//    }
 
     public User updateUserRole(Long id, Role role) {
         return userRepo.findById(id).map(existingUser -> {

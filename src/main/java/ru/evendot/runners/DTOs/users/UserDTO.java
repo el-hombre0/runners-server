@@ -1,17 +1,11 @@
 package ru.evendot.runners.DTOs.users;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.evendot.runners.DTOs.trainings.TrainingDTO;
-import ru.evendot.runners.entities.entertainment.Club;
-import ru.evendot.runners.entities.entertainment.Post;
-import ru.evendot.runners.entities.trainings.Training;
-import ru.evendot.runners.entities.users.Image;
+import ru.evendot.runners.DTOs.entertainment.ClubDTO;
+import ru.evendot.runners.DTOs.entertainment.PostDTO;
 import ru.evendot.runners.entities.users.Role;
-import ru.evendot.runners.entities.users.User;
 
 import java.util.List;
 import java.util.Set;
@@ -33,6 +27,6 @@ public class UserDTO {
     private List<PostDTO> posts;
     private Boolean isActive;
     private Role role;
-    @JsonIgnore
-    private Set<TrainingDTO> trainings;
+//    @JsonIgnore
+//    private Set<TrainingDTO> trainings;
 }

@@ -29,13 +29,16 @@ public class TrainingController {
     @PostMapping("/")
     public ResponseEntity<DataResponse> addTraining(@RequestBody CreateTrainingRequest req) {
         try {
-            Route route = routeService.initializeNewRoute(req.getRoute());
+            Route routeWOPoints = routeService.initializeNewRoute(req.getRoute());
+            Route route = routeService.addPointsToRoute(req.getRoute(), routeWOPoints);
             Training training = trainingService.saveTraining(req, route);
             TrainingDTO trainingDTO = trainingService.convertToTrainingDTO(training);
             return ResponseEntity.ok(new DataResponse("Training successfully added!", trainingDTO));
         }
         catch (ResourceNotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("Users with id " + req.getUserIds().toString() + " not found!", null));
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("Users with id " + req.getUserIds().toString() + " not found!", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("User with id " + req.getUserId() + " not found!", null));
+
 
         }
     }
@@ -44,7 +47,10 @@ public class TrainingController {
     public ResponseEntity<DataResponse> getTraining(@PathVariable Long id) {
         try {
             Training training = trainingService.getTraining(id);
+//            System.out.println("Training:" + training.toString());
             TrainingDTO trainingDTO = trainingService.convertToTrainingDTO(training);
+//            System.out.println("Training:" + trainingDTO.toString());
+
             return ResponseEntity.ok(new DataResponse("", trainingDTO));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataResponse("Training with id " + id + "not found!", null));

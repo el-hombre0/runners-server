@@ -17,9 +17,7 @@ import ru.evendot.runners.services.positioning.RouteService;
 import ru.evendot.runners.services.users.UserService;
 
 import java.time.Duration;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -37,11 +35,13 @@ public class TrainingService implements ITrainingService {
     public Training saveTraining(CreateTrainingRequest req, Route route) {
         Training training = new Training();
 
-        Set<User> users = new HashSet<>();
-        for (Long userId : req.getUserIds()){
-            users.add(userService.getUserById(userId));
-        }
-        training.setUsers(users);
+//        Set<User> users = new HashSet<>();
+//        for (Long userId : req.getUserIds()){
+//            users.add(userService.getUserById(userId));
+//        }
+//        training.setUsers(users);
+        User user = userService.getUserById(req.getUserId());
+        training.setUser(user);
         training.setRoute(route);
 
         training.setCreationDate(req.getCreationDate());
@@ -65,7 +65,7 @@ public class TrainingService implements ITrainingService {
 
     public Set<Training> getAllUserTrainings(Long userId){
         try{
-            return trainingRepo.findByUsers(userId);
+            return trainingRepo.findByUser(userId);
         } catch (RuntimeException e){
             throw new ResourceNotFoundException("User with id " + userId + " not found!");
         }
@@ -73,11 +73,13 @@ public class TrainingService implements ITrainingService {
 
     public Training updateTraining(UpdateTrainingRequest req) {
         return trainingRepo.findById(req.getId()).map(existingTraining -> {
-            Set<User> users = new HashSet<>();
-            for (Long userId : req.getUserIds()){
-                users.add(userService.getUserById(userId));
-            }
-            existingTraining.setUsers(users);
+//            Set<User> users = new HashSet<>();
+//            for (Long userId : req.getUserIds()){
+//                users.add(userService.getUserById(userId));
+//            }
+//            existingTraining.setUsers(users);
+            User user = userService.getUserById(req.getUserId());
+            existingTraining.setUser(user);
             Route route = routeService.getRoute(req.getRoute().getId());
             route.setDescription(req.getRoute().getDescription());
             route.setName(req.getRoute().getName());

@@ -1,6 +1,5 @@
 package ru.evendot.runners.entities.requests.training;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,14 +7,14 @@ import ru.evendot.runners.entities.requests.positioning.UpdateRouteRequest;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateTrainingRequest {
     private Long id;
-    private List<Long> userIds;
+//    private List<Long> userIds;
+    private Long userId;
     private UpdateRouteRequest route;
 
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy:mm:dd")
